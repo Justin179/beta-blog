@@ -2,10 +2,11 @@
 <p>
   <%= link_to 'Create new article', new_article_path %>
 </p>
-<table>
+<table class="table table-striped">
   <tr>
     <th>Title</th>
     <th>Description</th>
+    <th></th>
   </tr>
   <% @articles.each do |article| %>
   <tr>
