@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
 
   before_action :set_article, only: [:edit,:update,:show,:destroy]
-  
+
   def index
     @articles = Article.all
   end
@@ -19,6 +19,7 @@ class ArticlesController < ApplicationController
     # render plain: params[:article].inspect #確認接值
     # 接值(white list the incoming params)
     @article = Article.new(article_params)
+    @article.user = User.first
     if @article.save
       flash[:notice] = "Article was successfully created"
       redirect_to article_path(@article)
@@ -29,6 +30,7 @@ class ArticlesController < ApplicationController
 
   def update
     #@article = Article.find(params[:id])
+    @article.user = User.first
     if @article.update(article_params)
       flash[:notice] = "Article was successfully updated"
       redirect_to article_path(@article)
@@ -55,6 +57,6 @@ class ArticlesController < ApplicationController
 
     # white list (開洞之意) the incoming params
     def article_params
-      params.require(:article).permit(:title, :description)
+      params.require(:article).permit(:title, :description, :image)
     end
 end
